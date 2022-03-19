@@ -1,0 +1,16 @@
+#!/usr/bin/sh
+if [[ "${1}" =~ ^[0-9]+$ ]]; then
+  echo Local server started on ${1} port.
+  python3 -m http.server ${1}
+elif [[ "${1}" == "" ]]; then
+  echo No port specified. Trying default 8000 port.
+  python3 -m http.server
+else
+  echo -n "Invalid port. Continue with default 8000 port? [Y/n]: "
+  read
+  if [[ ${REPLY} == "Y" || ${REPLY} == "y" || ${REPLY} == "" ]]; then
+    python3 -m http.server
+  else
+    echo Aborted by user.
+  fi
+fi
